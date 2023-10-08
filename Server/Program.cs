@@ -1,6 +1,13 @@
+using Server.Utils.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
+if (!builder.AddDb())
+    return;
+
 // Add services to the container.
+builder.Services.AddSignalR();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -15,6 +22,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+if (!await app.InitDb())
+    return;
+if (!app.AddSignalR())
+    return;
 
 app.UseHttpsRedirection();
 
