@@ -12,24 +12,26 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-     - name: Setup Dotnet
-       uses: actions/setup-dotnet@v3
-       with:
-         dotnet-version: '7.0.x'
-     - name: Checkout
-       uses: actions/checkout@v4.1.0
-     - name: Generate Cache
-       uses: actions/cache@v3.3.2
-       with:
-         path: |
+      - name: Setup Dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - name: Checkout
+        uses: actions/checkout@v4.1.0
+      - name: Generate Cache
+        uses: actions/cache@v3.3.2
+        id: cache
+        with:
+          path: |
             ~/.nuget/packages
             !~/.nuget/packages/unwanted
-         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
-         restore-keys: |
-           ${{ runner.os }}-nuget-
-     - name: Setup Tools
-       run: dotnet workload install ios android
-     - name: Add Source
-       run: dotnet nuget add source ${{ secrets.NUGET_SOURCE }} --name DevExpress
-     - name: Restore
-       run: dotnet restore
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+      - name: Setup Tools
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: dotnet workload install ios android
+      - name: Add Source
+        run: dotnet nuget add source ${{ secrets.NUGET_SOURCE }} --name DevExpress
+      - name: Restore
+        run: dotnet restore
