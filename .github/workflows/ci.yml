@@ -28,6 +28,6 @@ jobs:
          restore-keys: |
            ${{ runner.os }}-nuget-
      - name: Setup Tools
-       run: dotnet workload restore
+       run: dotnet workload install ios android
      - name: Restore
        run: dotnet restore
