@@ -29,5 +29,7 @@ jobs:
            ${{ runner.os }}-nuget-
      - name: Setup Tools
        run: dotnet workload install ios android
+     - name: Add Source
+       run: dotnet nuget add source ${{ secrets.NUGET_SOURCE }} --name DevExpress
      - name: Restore
        run: dotnet restore
