@@ -32,6 +32,8 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet workload install ios android
       - name: Add Source
+        if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet nuget add source ${{ secrets.NUGET_SOURCE }} --name DevExpress
       - name: Restore
+        if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet restore
