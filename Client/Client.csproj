@@ -50,21 +50,4 @@
 		<PackageReference Include="DevExpress.Maui.Scheduler" Version="23.1.5" />
 		<TrimmableAssembly Include="DevExpress.Data.v23.1" />
 	</ItemGroup>
-
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\Menu.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>Menu.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-
-
-	<ItemGroup>
-	  <Compile Update="Resources\Menu.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>Menu.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
 </Project>
