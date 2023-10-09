@@ -17,10 +17,10 @@ public class BaseModel
 
     [Required] public bool Undeletable { get; set; }
 
-    public bool StateOrRemove() => true;
+    public virtual bool StateInsteadOfRemove() => true;
 }
 
 public abstract class BaseModel<TDto> : BaseModel where TDto : new()
 {
-    public TDto ToDto() => new();
+    public virtual TDto ToDto() => new();
 }

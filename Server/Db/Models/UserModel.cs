@@ -4,13 +4,14 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Models.Dto.Users;
 using PasswordGenerator;
 using Server.Db.Models.Base;
 using Server.Settings;
 
 namespace Server.Db.Models;
 
-public class UserModel : BaseModel
+public class UserModel : BaseModel<UserGetDto>
 {
     public UserModel(string firstName, string lastName, string? email, string? phone, string userName, bool isAdmin, bool undeletable)
     {
@@ -48,6 +49,12 @@ public class UserModel : BaseModel
     [Required]
     public bool IsAdmin { get; set; }
 
+
+    public override UserGetDto ToDto()
+    {
+        var dto = new UserGetDto(Id, FirstName, LastName, Email, Phone, UserName, IsAdmin);
+        return dto;
+    }
 
     public async Task<byte[]> GenerateHash(string password, bool useExistingKey = false)
     {
