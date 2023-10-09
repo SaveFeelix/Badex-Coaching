@@ -5,6 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 if (!builder.AddDb())
     return;
+if (!builder.AddJwt())
+    return;
+if (!builder.AddSwagger())
+    return;
 
 // Add services to the container.
 builder.Services.AddSignalR();
@@ -12,7 +16,6 @@ builder.Services.AddSignalR();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
@@ -32,8 +35,7 @@ if (!await app.InitDb())
 if (!app.AddSignalR())
     return;
 
-app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
