@@ -17,6 +17,6 @@ public class BaseController<TController> : ControllerBase
         Logger = logger;
     }
 
-    public ILogger<TController> Logger { get; }
-    public DataContext Database { get; }
+    protected ILogger<TController> Logger { get; }
+    protected DataContext Database { get; }
 }

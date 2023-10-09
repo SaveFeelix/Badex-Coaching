@@ -5,7 +5,6 @@ using Models.Dto.Users;
 using Models.Result;
 using Server.API.Controller.Base;
 using Server.Db;
-using Server.Db.Models;
 using Server.Db.Models.Types;
 using Server.Settings;
 
@@ -24,6 +23,7 @@ public class AuthController : BaseController<AuthController>
     public async Task<ActionResult<BaseResult<string>>> Login(UserLoginDto dto)
     {
         var user = await Database.User.Where(it => it.State == ItemState.Activated)
+            // ReSharper disable once SpecifyStringComparison
             .FirstOrDefaultAsync(it => it.UserName.ToLower() == dto.Username.ToLower());
 
         if (user is null)
