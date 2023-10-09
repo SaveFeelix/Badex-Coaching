@@ -21,7 +21,7 @@ public static class AppExtensions
         try
         {
 #if DEBUG
-            SqliteConnectionStringBuilder conBuilder = new SqliteConnectionStringBuilder()
+            var conBuilder = new SqliteConnectionStringBuilder
             {
                 Cache = SqliteCacheMode.Shared,
                 Mode = SqliteOpenMode.ReadWriteCreate,
@@ -53,7 +53,7 @@ public static class AppExtensions
                 return false;
             }
 
-            NpgsqlConnectionStringBuilder conBuilder = new NpgsqlConnectionStringBuilder()
+            NpgsqlConnectionStringBuilder conBuilder = new NpgsqlConnectionStringBuilder
             {
                 Database = "Badex-Coaching",
                 BrowsableConnectionString = true,
@@ -86,7 +86,7 @@ public static class AppExtensions
         try
         {
 #if DEBUG
-            JwtSettings settings =
+            var settings =
                 new JwtSettings("y$GLB%&PyidUVEpSnMwwfT96v4sT42T!kMvUTrrqUvRt8x385!6B&nT3mN%e36cg", 365);
 #else
             string? token = Environment.GetEnvironmentVariable("JWT_TOKEN");
@@ -150,7 +150,7 @@ public static class AppExtensions
                     In = ParameterLocation.Header,
                     Description = "Please insert JWT with Bearer into field",
                     Name = "Authorization",
-                    Type = SecuritySchemeType.ApiKey,
+                    Type = SecuritySchemeType.ApiKey
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                     {

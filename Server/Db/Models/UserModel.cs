@@ -51,22 +51,22 @@ public class UserModel : BaseModel
 
     public async Task<byte[]> GenerateHash(string password, bool useExistingKey = false)
     {
-        using HMACSHA512 hmac = new HMACSHA512();
+        using var hmac = new HMACSHA512();
         if (useExistingKey)
             hmac.Key = Salt;
         else
             Salt = hmac.Key;
 
-        byte[] bytes = Encoding.UTF8.GetBytes(password);
+        var bytes = Encoding.UTF8.GetBytes(password);
         await using var stream = new MemoryStream(bytes);
-        byte[] hash = await hmac.ComputeHashAsync(stream);
+        var hash = await hmac.ComputeHashAsync(stream);
         return hash;
     }
 
     public async Task<string> GeneratePassword(int length = 16)
     {
-        Password generator = new Password(true, true, true, false, length);
-        string? password = generator.Next();
+        var generator = new Password(true, true, true, false, length);
+        var password = generator.Next();
         while (string.IsNullOrEmpty(password))
             password = generator.Next();
         Hash = await GenerateHash(password);
@@ -75,9 +75,9 @@ public class UserModel : BaseModel
 
     public string GenerateToken(JwtSettings settings)
     {
-        JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-        byte[] key = Encoding.UTF8.GetBytes(settings.Secret);
-        SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor
+        var handler = new JwtSecurityTokenHandler();
+        var key = Encoding.UTF8.GetBytes(settings.Secret);
+        var descriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
@@ -88,7 +88,7 @@ public class UserModel : BaseModel
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
         };
-        JwtSecurityToken token = handler.CreateJwtSecurityToken(descriptor);
+        var token = handler.CreateJwtSecurityToken(descriptor);
         return handler.WriteToken(token);
     }
 }

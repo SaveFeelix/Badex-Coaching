@@ -2,25 +2,25 @@ namespace Models.Result;
 
 public class BaseResult : BaseResult<object>
 {
-    public BaseResult(bool error, string? message = default) : base(error, message)
+    protected BaseResult(bool error, string? message = default) : base(error, message)
     {
     }
 
-    public BaseResult()
+    protected BaseResult()
     {
     }
 }
 
 public class BaseResult<TResult>
 {
-    public BaseResult(bool error, string? message = default, TResult? result = default)
+    protected BaseResult(bool error, string? message = default, TResult? result = default)
     {
         Error = error;
         Message = message;
         Result = result;
     }
 
-    public BaseResult()
+    protected BaseResult()
     {
     }
 

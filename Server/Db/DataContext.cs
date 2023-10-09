@@ -1,3 +1,4 @@
+#nullable disable
 using Microsoft.EntityFrameworkCore;
 using Server.Db.Models;
 
@@ -21,7 +22,7 @@ public class DataContext : DbContext
         {
             UserModel user =
                 new("Administrator", "Administrator", null, null, "administrator", true, true);
-            string generatedPassword = await user.GeneratePassword();
+            var generatedPassword = await user.GeneratePassword();
             await User.AddAsync(user);
             await SaveChangesAsync();
             await File.WriteAllTextAsync("password.txt", generatedPassword);
@@ -33,7 +34,7 @@ public class DataContext : DbContext
             return;
         }
 
-        string password = await File.ReadAllTextAsync("password.txt");
+        var password = await File.ReadAllTextAsync("password.txt");
         Logger.LogInformation("{Password}", password);
     }
 }

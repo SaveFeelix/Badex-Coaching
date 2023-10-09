@@ -12,8 +12,4 @@ public class SuccessResult<TResult> : BaseResult<TResult>
     public SuccessResult(string? message = default, TResult? result = default) : base(false, message, result)
     {
     }
-
-    public SuccessResult()
-    {
-    }
 }

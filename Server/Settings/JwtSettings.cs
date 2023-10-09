@@ -8,6 +8,6 @@ public class JwtSettings
         Duration = duration;
     }
 
-    public string Secret { get; set; }
-    public double Duration { get; set; }
+    public string Secret { get; }
+    public double Duration { get; }
 }

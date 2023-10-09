@@ -23,15 +23,15 @@ public class AuthController : BaseController<AuthController>
     [AllowAnonymous]
     public async Task<ActionResult<BaseResult<string>>> Login(UserLoginDto dto)
     {
-        UserModel? user = await Database.User.Where(it => it.State == ItemState.Activated)
+        var user = await Database.User.Where(it => it.State == ItemState.Activated)
             .FirstOrDefaultAsync(it => it.UserName.ToLower() == dto.Username.ToLower());
 
         if (user is null)
             return Ok(new ErrorResult("Ein Benutzer mit diesem Benutzer wurde nicht gefunden!"));
-        byte[] hash = await user.GenerateHash(dto.Password, true);
+        var hash = await user.GenerateHash(dto.Password, true);
         if (!hash.SequenceEqual(user.Hash))
             return Ok(new ErrorResult("Ein falsches Passwort wurde angegeben!"));
-        string token = user.GenerateToken(Settings);
+        var token = user.GenerateToken(Settings);
         return Ok(new SuccessResult<string>("Login erfolgreich!", token));
     }
 
