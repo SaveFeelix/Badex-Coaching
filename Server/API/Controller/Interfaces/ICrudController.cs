@@ -9,5 +9,5 @@ public interface ICrudController<TGetDto, in TCreateDto, in TUpdateDto>
     public Task<ActionResult<BaseResult<TGetDto>>> ById(int id);
     public Task<ActionResult<BaseResult<TGetDto>>> Create(TCreateDto dto);
     public Task<ActionResult<BaseResult<TGetDto>>> Update(int id, TUpdateDto dto);
-    public Task<ActionResult<BaseResult<TGetDto>>> Delete(int id);
+    public Task<ActionResult<BaseResult>> Delete(int id);
 }
