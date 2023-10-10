@@ -38,4 +38,4 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: dotnet restore
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build
